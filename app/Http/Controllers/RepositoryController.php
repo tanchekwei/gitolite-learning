@@ -17,7 +17,7 @@ class RepositoryController extends Controller
     public function index()
     {
         $output = shell_exec('ssh git@192.168.59.131 info');
-        dd($output);
+        return view('repositories.index', compact('output'));
     }
 
     /**
@@ -56,7 +56,7 @@ class RepositoryController extends Controller
         shell_exec('git clone '. config('gitolite.git_server_url') .':' . $repository->name);
 //        $output = shell_exec('rm -rf '.escapeshellarg($repository->name));
 //        dd($output);
-        return redirect('/repositories');
+        return redirect('repositories')->with('success', 'Your '.$repository->name . ' repository has been created.');;
     }
 
     /**
